@@ -4,6 +4,7 @@ import DisplayName from './DisplayName/DisplayName';
 import ExerciseMenu from './ExerciseMenu/ExerciseMenu';
 import AlertUser from './AlertUser/AlertUser';
 import NamesList from './NamesList/NamesList';
+import SuperheroTable from './SuperheroTable/SuperheroTable';
 
 class App extends Component{
   constructor(props){
@@ -103,6 +104,7 @@ class App extends Component{
       return (
         <div className="App">
           <ExerciseMenu update={this.updateState} />
+          <SuperheroTable heroes={this.state.superheroes} />
         </div>
       )
     } 
