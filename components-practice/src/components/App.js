@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 import ExerciseMenu from './ExerciseMenu/ExerciseMenu';
 
-class App {
+class App extends Component{
   constructor(props){
     super(props)
 
     // Exercise 1
-    state1 = {
+    this.state1 = {
       firstName: 'Reggie',
       lastName: 'White'
     }
     
     // Exercise 2
-    state2 = {
+    this.state2 = {
       names: ['Mike', 'Nevin', 'Aaron', 'Tory', 'Kelly']
     }
     
     // Exercise 3
-    state3 = {
-      superheroes = [
+    this.state3 = {
+      superheroes: [
         {
           superheroId: 1,
           name: 'Batman',
