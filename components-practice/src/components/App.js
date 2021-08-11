@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import './App.css';
+import DisplayName from './DisplayName/DisplayName';
 import ExerciseMenu from './ExerciseMenu/ExerciseMenu';
+import AlertUser from './AlertUser/AlertUser';
+import NamesList from './NamesList/NamesList';
 
 class App extends Component{
   constructor(props){
@@ -8,17 +11,20 @@ class App extends Component{
 
     // Exercise 1
     this.state1 = {
+      currentExercise: 1,
       firstName: 'Reggie',
       lastName: 'White'
     }
     
     // Exercise 2
     this.state2 = {
+      currentExercise: 2,
       names: ['Mike', 'Nevin', 'Aaron', 'Tory', 'Kelly']
     }
     
-    // Exercise 3
-    this.state3 = {
+    // Exercise 4
+    this.state4 = {
+      currentExercise: 4,
       superheroes: [
         {
           superheroId: 1,
@@ -46,33 +52,60 @@ class App extends Component{
     }
   }
 
-  updateState = () => {
-    let exercise = this.state.currentExercise;
+  updateState = (exercise) => {
     let newState = null;
     if (exercise === 1){
       newState = this.state1;
     } else if (exercise === 2){
       newState = this.state2;
+    } else if (exercise === 4) {
+      newState = this.state4;
     } else {
-      newState = this.state3;
+      newState = {
+        currentExercise: 3
+      }
     }
 
     this.setState(newState);
   }
 
-  selectExercise = (number) => {
-    this.setState({
-      currentExercise: number
-    })
-    this.updateState()
+  sayDevCodeCamp = () => {
+    alert("devCodeCamp")
+  }
+
+  refreshPage = () => {
+    window.location.reload(false);
   }
 
   render() {
-    return (
-      <div className="App">
-        <ExerciseMenu selectExercise={this.selectExercise} />
-      </div>
-    );
+    if (this.state.currentExercise===1){
+      return (
+        <div className="App">
+          <ExerciseMenu update={this.updateState} />
+          <DisplayName firstName={this.state.firstName} lastName={this.state.lastName} />
+        </div>
+      )
+    } else if (this.state.currentExercise === 2) {
+      return (
+        <div className="App">
+          <ExerciseMenu update={this.updateState} />
+          <NamesList names={this.state.names} />
+        </div>
+      )
+    } else if (this.state.currentExercise === 3) {
+      return (
+        <div className="App">
+          <ExerciseMenu update={this.updateState} />
+          <AlertUser popup={this.sayDevCodeCamp} />
+        </div>
+      )
+    } else {
+      return (
+        <div className="App">
+          <ExerciseMenu update={this.updateState} />
+        </div>
+      )
+    } 
   }
 }
 
