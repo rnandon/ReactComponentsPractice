@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Accordion from 'react-bootstrap/Accordion'
 import './App.css';
 import DisplayName from './DisplayName/DisplayName';
 import ExerciseMenu from './ExerciseMenu/ExerciseMenu';
@@ -49,17 +50,37 @@ class App extends Component{
     }
 
     this.state = {
-      currentExercise: 1
+      currentExercise: 1,
+      jokes: null
     }
   }
 
   componentDidMount() {
-    axios.get("https://official-joke-api.appspot.com/jokes/ten").then((response) => {
-      this.jokes = response.data;
-    })
+    this.getJokes();
+  }
+
+  async getJokes() {
+    debugger;
+    try{
+      let response = await axios.get("https://official-joke-api.appspot.com/jokes/ten");
+      this.setState({
+        jokes: response.data
+      })
+    } catch (ex) {
+      console.log("API call failed.");
+      this.getJokes();
+    }
   }
 
   updateState = (exercise) => {
+    // debugger;
+    // if (!this.state.jokes){
+    //   let jokesResponse = this.getJokes();
+    //   this.setState({
+    //     jokes: jokesResponse.data
+    //   })
+    // }
+
     let newState = null;
     if (exercise === 1){
       newState = this.state1;
@@ -134,7 +155,7 @@ class App extends Component{
       return (
         <div className="App">
           <ExerciseMenu update={this.updateState} />
-          <JokeRetriever jokes={this.jokes}/>
+          <JokeRetriever jokes={this.state.jokes} />
         </div>
       )
     } 
